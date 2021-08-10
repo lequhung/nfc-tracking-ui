@@ -1,0 +1,25 @@
+.container {
+  margin: 0 16px;
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.inputWrapper {
+  background-color: #ffffff;
+  padding-right: 120px;
+}
+
+.searchForm button {
+  margin-left: -120px;
+  height: 40px;
+  padding: 0 32px;
+}
+
+.errorMessage {
+  margin-top: 8px;
+  font-size: 12px;
+}

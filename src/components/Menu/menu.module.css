@@ -1,0 +1,14 @@
+.container {
+  color: #ffffff;
+}
+
+.menu {
+  list-style-type: none;
+}
+
+.menuItem a {
+  color: #ffffff;
+  border: 1px solid white;
+  padding: 8px 32px;
+  border-radius: 4px;
+}

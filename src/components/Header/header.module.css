@@ -1,12 +1,18 @@
 .container {
-  background-color: #000000;
+  background-color: rgba(0, 0, 0, 0.93);
   color: #ffffff;
+  padding: 8px 16px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-svg {
-  width: 64px;
-  height: 64px;
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo span {
+  margin-left: 8px;
 }

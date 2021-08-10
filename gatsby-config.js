@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: 'NFC Tracking',
-    siteUrl: 'https://nfctracking.com.au',
+    siteUrl: 'https://nfctracking.com.au'
   },
   plugins: [
     'gatsby-plugin-gatsby-cloud',
@@ -13,8 +13,8 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+        path: `${__dirname}/src/images`
+      }
     }
   ]
-}
+};

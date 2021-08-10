@@ -1,7 +1,7 @@
 import { navigate } from 'gatsby';
 
 const RedirectToHomePage = () => {
-  navigate('/');
+  void navigate('/');
   return null;
 };
 
