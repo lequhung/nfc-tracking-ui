@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as styles from './layout.module.css';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import Header from '../Header/Header';
@@ -27,7 +28,7 @@ const Layout = ({ children }) => {
         <title>{data.site.siteMetadata.title}</title>
       </Helmet>
       <ThemeProvider theme={muTheme}>
-        <div>
+        <div className={styles.container}>
           <Header />
           <main>{children}</main>
           <Footer />

@@ -7,6 +7,7 @@ const pageContainer = {
   zIndex: -1,
   width: '100%',
   height: '100%',
+  // below css is for the footer
   display: 'flex',
   flexDirection: 'column',
   minHeight: '100vh'

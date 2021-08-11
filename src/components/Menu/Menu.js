@@ -1,12 +1,11 @@
 import * as React from 'react';
 import * as styles from './menu.module.css';
 import { Link } from '@material-ui/core';
-import { navigate } from 'gatsby';
 
 const Menu = () => {
   const onClick = (event) => {
     event.preventDefault();
-    void navigate('/');
+    window.location.assign('/');
   };
 
   return (
@@ -14,7 +13,7 @@ const Menu = () => {
       <ul className={styles.menu}>
         <li className={styles.menuItem}>
           <Link href="" onClick={onClick}>
-            Home
+            Track an Item
           </Link>
         </li>
       </ul>
