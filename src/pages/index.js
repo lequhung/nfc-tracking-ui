@@ -54,6 +54,7 @@ const IndexPage = () => {
     }
 
     setLoading(false);
+
     return () => {
       setLoading(true);
       setShowTracking(false);
@@ -73,7 +74,6 @@ const IndexPage = () => {
       <StaticImage
         alt="background"
         src="../images/background.webp"
-        loading="eager"
         layout="fixed"
         style={pageContainer}
       />
