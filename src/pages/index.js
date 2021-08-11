@@ -2,6 +2,8 @@ import * as React from 'react';
 import { StaticImage } from 'gatsby-plugin-image';
 import Search from '../components/Search/Search';
 import TrackingInfo from '../components/TrackingInfo/TrackingInfo';
+import ArrowBackTwoToneIcon from '@material-ui/icons/ArrowBackTwoTone';
+import { Link } from '@material-ui/core';
 
 const pageContainer = {
   position: 'absolute',
@@ -22,9 +24,22 @@ const searchContainer = {
   maxWidth: '700px'
 };
 
+const backLinkContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  color: '#ffffff',
+  margin: '16px'
+};
+
+const backLink = {
+  color: '#ffffff'
+};
+
 const IndexPage = () => {
   const [isLoading, setLoading] = React.useState(true);
   const [showTracking, setShowTracking] = React.useState(false);
+  const [showBackLink, setShowBackLink] = React.useState(false);
   const [orderNumber, setOrderNumber] = React.useState('');
 
   React.useEffect(() => {
@@ -33,13 +48,25 @@ const IndexPage = () => {
     if (params.has('track') && params.has('order')) {
       setOrderNumber(params.get('order'));
       setShowTracking(true);
+      setShowBackLink(false);
+    } else {
+      setShowBackLink(true);
     }
 
     setLoading(false);
     return () => {
       setLoading(true);
+      setShowTracking(false);
+      setOrderNumber('');
     };
   }, []);
+
+  const onBackClick = (event) => {
+    event.preventDefault();
+
+    setShowTracking(false);
+    setOrderNumber('');
+  };
 
   return (
     <>
@@ -57,7 +84,21 @@ const IndexPage = () => {
               <Search onDisplayTrackingInfo={() => setShowTracking(true)} onOrderNumber={setOrderNumber} />
             )}
           </div>
-          <div>{showTracking && <TrackingInfo orderNumber={orderNumber} />}</div>
+          <div>
+            {showTracking && (
+              <>
+                {showBackLink && (
+                  <div style={backLinkContainer}>
+                    <ArrowBackTwoToneIcon />
+                    <Link href="" onClick={onBackClick} style={backLink}>
+                      Back
+                    </Link>
+                  </div>
+                )}
+                <TrackingInfo orderNumber={orderNumber} />
+              </>
+            )}
+          </div>
         </>
       )}
     </>
