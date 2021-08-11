@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StaticImage } from 'gatsby-plugin-image';
 import Search from '../components/Search/Search';
+import TrackingInfo from '../components/TrackingInfo/TrackingInfo';
 
 const pageContainer = {
   position: 'absolute',
@@ -23,8 +24,17 @@ const searchContainer = {
 
 const IndexPage = () => {
   const [isLoading, setLoading] = React.useState(true);
+  const [showTracking, setShowTracking] = React.useState(false);
+  const [orderNumber, setOrderNumber] = React.useState('');
 
   React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.has('track') && params.has('order')) {
+      setOrderNumber(params.get('order'));
+      setShowTracking(true);
+    }
+
     setLoading(false);
     return () => {
       setLoading(true);
@@ -41,9 +51,14 @@ const IndexPage = () => {
         style={pageContainer}
       />
       {!isLoading && (
-        <div style={searchContainer}>
-          <Search />
-        </div>
+        <>
+          <div style={searchContainer}>
+            {!showTracking && (
+              <Search onDisplayTrackingInfo={() => setShowTracking(true)} onOrderNumber={setOrderNumber} />
+            )}
+          </div>
+          <div>{showTracking && <TrackingInfo orderNumber={orderNumber} />}</div>
+        </>
       )}
     </>
   );

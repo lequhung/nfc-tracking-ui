@@ -1,48 +1,76 @@
 import * as React from 'react';
 import * as styles from './search.module.css';
 import { Button, TextField, Dialog, DialogActions, DialogContent, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const errorMessage = {
   marginTop: '8px',
   fontSize: '12px'
 };
 
-const Search = () => {
-  const [isError, setError] = React.useState(false);
+const Search = ({ onDisplayTrackingInfo, onOrderNumber }) => {
+  const [isErrorOnSearch, setErrorOnSearch] = React.useState(false);
+  const [isErrorOnOrderNumber, setErrorOnOrderNumber] = React.useState(false);
   const [isModelOpen, setModelOpen] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState('');
+  const [orderNumber, setOrderNumber] = React.useState('');
   const inputRef = React.useRef(null);
 
   React.useEffect(() => {
     return () => {
-      setError(false);
+      setErrorOnSearch(false);
+      setErrorOnOrderNumber(false);
       setModelOpen(false);
       setSearchValue('');
+      setOrderNumber('');
     };
   }, []);
 
   const onSearchValueChange = (event) => {
-    setError(false);
+    setErrorOnSearch(false);
     setSearchValue(event.target.value);
   };
 
   const onTrackClick = () => {
-    setError(false);
+    setErrorOnSearch(false);
 
     if (searchValue) {
       setModelOpen(true);
     } else {
-      setError(true);
+      setErrorOnSearch(true);
     }
   };
 
-  const onModelClose = () => {
+  const onKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      onTrackClick();
+    }
+  };
+
+  const onOrderNumberChange = (event) => {
+    setOrderNumber(event.target.value);
+    onOrderNumber(event.target.value);
+  };
+
+  const onModelCloseCancel = () => {
     setModelOpen(false);
+  };
+
+  const onModelCloseOk = () => {
+    setErrorOnOrderNumber(false);
+
+    if (orderNumber) {
+      setModelOpen(false);
+      onDisplayTrackingInfo();
+    } else {
+      setErrorOnOrderNumber(true);
+    }
   };
 
   return (
     <div className={styles.container}>
-      <form className={styles.searchForm} autoComplete="off">
+      <div className={styles.searchForm}>
         <TextField
           id="searchTextField"
           variant="outlined"
@@ -54,34 +82,50 @@ const Search = () => {
           InputProps={{
             className: styles.inputWrapper
           }}
-          error={isError}
+          error={isErrorOnSearch}
           inputRef={inputRef}
           onChange={onSearchValueChange}
+          onKeyDown={onKeyDown}
+          autoComplete="off"
         />
         <Button variant="contained" color="primary" onClick={onTrackClick}>
           Track
         </Button>
-      </form>
-      {isError && (
+      </div>
+      {isErrorOnSearch && (
         <Typography color="error" style={errorMessage}>
           Tracking number is required
         </Typography>
       )}
-      <Dialog open={isModelOpen} onClose={onModelClose}>
+      <Dialog open={isModelOpen} onClose={onModelCloseCancel}>
         <DialogContent>
-          <TextField autoFocus margin="dense" id="orderNumber" label="Order Number" type="text" fullWidth />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="orderNumber"
+            label="Order Number"
+            type="text"
+            fullWidth
+            onChange={onOrderNumberChange}
+            error={isErrorOnOrderNumber}
+          />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onModelClose} color="primary">
+          <Button onClick={onModelCloseCancel} color="primary">
             Cancel
           </Button>
-          <Button onClick={onModelClose} color="primary">
+          <Button onClick={onModelCloseOk} color="primary">
             OK
           </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
+};
+
+Search.propTypes = {
+  onDisplayTrackingInfo: PropTypes.func,
+  onOrderNumber: PropTypes.func
 };
 
 export default Search;
