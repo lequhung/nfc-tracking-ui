@@ -1,11 +1,10 @@
-import * as React from 'react';
-import { StaticImage } from 'gatsby-plugin-image';
+import * as React from 'react';import { StaticImage } from 'gatsby-plugin-image';
 import Search from '../components/Search/Search';
 import TrackingInfo from '../components/TrackingInfo/TrackingInfo';
 import ArrowBackTwoToneIcon from '@material-ui/icons/ArrowBackTwoTone';
 import { Link } from '@material-ui/core';
 
-const pageContainer = {
+const pageWrapper = {
   position: 'absolute',
   zIndex: -1,
   width: '100%',
@@ -16,7 +15,7 @@ const pageContainer = {
   minHeight: '100vh'
 };
 
-const searchContainer = {
+const searchWrapper = {
   position: 'relative',
   top: '30%',
   margin: 'auto',
@@ -24,7 +23,7 @@ const searchContainer = {
   maxWidth: '700px'
 };
 
-const backLinkContainer = {
+const backLinkWrapper = {
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -32,7 +31,7 @@ const backLinkContainer = {
   margin: '16px'
 };
 
-const backLink = {
+const backLinkItem = {
   color: '#ffffff'
 };
 
@@ -75,11 +74,12 @@ const IndexPage = () => {
         alt="background"
         src="../images/background.webp"
         layout="fixed"
-        style={pageContainer}
+        loading="eager"
+        style={pageWrapper}
       />
       {!isLoading && (
         <>
-          <div style={searchContainer}>
+          <div style={searchWrapper}>
             {!showTracking && (
               <Search onDisplayTrackingInfo={() => setShowTracking(true)} onOrderNumber={setOrderNumber} />
             )}
@@ -88,9 +88,9 @@ const IndexPage = () => {
             {showTracking && (
               <>
                 {showBackLink && (
-                  <div style={backLinkContainer}>
+                  <div style={backLinkWrapper}>
                     <ArrowBackTwoToneIcon />
-                    <Link href="" onClick={onBackClick} style={backLink}>
+                    <Link href="" onClick={onBackClick} style={backLinkItem}>
                       Back
                     </Link>
                   </div>
