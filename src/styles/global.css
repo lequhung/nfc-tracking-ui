@@ -1,9 +1,12 @@
 body {
   margin: 0;
   padding: 0;
+  /*noinspection CssNoGenericFontName*/
   font-family: 'Roboto', Arial;
+  background-image: url('../images/background.webp');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
 }
 
-main {
-  flex: 1;
-}

@@ -1,26 +1,13 @@
-import * as React from 'react';import { StaticImage } from 'gatsby-plugin-image';
+import * as React from 'react';
 import Search from '../components/Search/Search';
 import TrackingInfo from '../components/TrackingInfo/TrackingInfo';
 import ArrowBackTwoToneIcon from '@material-ui/icons/ArrowBackTwoTone';
 import { Link } from '@material-ui/core';
 
-const pageWrapper = {
-  position: 'absolute',
-  zIndex: -1,
-  width: '100%',
-  height: '100%',
-  // below css is for the footer
-  display: 'flex',
-  flexDirection: 'column',
-  minHeight: '100vh'
-};
-
 const searchWrapper = {
-  position: 'relative',
-  top: '30%',
   margin: 'auto',
-  width: '100%',
-  maxWidth: '700px'
+  maxWidth: '700px',
+  marginTop: '30vh'
 };
 
 const backLinkWrapper = {
@@ -70,35 +57,26 @@ const IndexPage = () => {
 
   return (
     <>
-      <StaticImage
-        alt="background"
-        src="../images/background.webp"
-        layout="fixed"
-        loading="eager"
-        style={pageWrapper}
-      />
       {!isLoading && (
         <>
-          <div style={searchWrapper}>
-            {!showTracking && (
+          {!showTracking && (
+            <div style={searchWrapper}>
               <Search onDisplayTrackingInfo={() => setShowTracking(true)} onOrderNumber={setOrderNumber} />
-            )}
-          </div>
-          <div>
-            {showTracking && (
-              <>
-                {showBackLink && (
-                  <div style={backLinkWrapper}>
-                    <ArrowBackTwoToneIcon />
-                    <Link href="" onClick={onBackClick} style={backLinkItem}>
-                      Back
-                    </Link>
-                  </div>
-                )}
-                <TrackingInfo orderNumber={orderNumber} />
-              </>
-            )}
-          </div>
+            </div>
+          )}
+          {showTracking && (
+            <div>
+              {showBackLink && (
+                <div style={backLinkWrapper}>
+                  <ArrowBackTwoToneIcon />
+                  <Link href="" onClick={onBackClick} style={backLinkItem}>
+                    Back
+                  </Link>
+                </div>
+              )}
+              <TrackingInfo orderNumber={orderNumber} />
+            </div>
+          )}
         </>
       )}
     </>
