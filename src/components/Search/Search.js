@@ -41,7 +41,7 @@ const Search = ({ onDisplayTrackingInfo, onOrderNumber }) => {
     }
   };
 
-  const onKeyDown = (event) => {
+  const onTrackKeyDown = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       onTrackClick();
@@ -54,6 +54,7 @@ const Search = ({ onDisplayTrackingInfo, onOrderNumber }) => {
   };
 
   const onModelCloseCancel = () => {
+    setErrorOnOrderNumber(false);
     setModelOpen(false);
   };
 
@@ -65,6 +66,13 @@ const Search = ({ onDisplayTrackingInfo, onOrderNumber }) => {
       onDisplayTrackingInfo();
     } else {
       setErrorOnOrderNumber(true);
+    }
+  };
+
+  const onOrderNumberKeydown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      onModelCloseOk();
     }
   };
 
@@ -85,7 +93,7 @@ const Search = ({ onDisplayTrackingInfo, onOrderNumber }) => {
           error={isErrorOnSearch}
           inputRef={inputRef}
           onChange={onSearchValueChange}
-          onKeyDown={onKeyDown}
+          onKeyDown={onTrackKeyDown}
           autoComplete="off"
         />
         <Button variant="contained" color="primary" onClick={onTrackClick}>
@@ -107,6 +115,7 @@ const Search = ({ onDisplayTrackingInfo, onOrderNumber }) => {
             type="text"
             fullWidth
             onChange={onOrderNumberChange}
+            onKeyDown={onOrderNumberKeydown}
             error={isErrorOnOrderNumber}
           />
         </DialogContent>
